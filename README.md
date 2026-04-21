@@ -1,10 +1,14 @@
 # 💤 lazy.zsh
 
-**lazy.zsh** is a **lightweight and minimal** Zsh plugin manager.
+**lazy.zsh** makes your `.zshrc` the single source of truth. Reproduce
+the same Zsh setup anywhere using the same config - no frameworks,
+no auto-sourcing, no hidden behavior - just a minimal plugin manager
+that installs, updates and tracks plugins while you control exactly
+how and when they’re loaded.
 
 ### ✨ Features
 
-- 🚀 **Fast & Lightweight** – No unnecessary dependencies, just pure Zsh and Git.
+- 🚀 **Fast & Minimal** – No dependencies beyond Zsh and Git
 - ⚡ **One-Line Bootstrap** – Quickly install lazy.zsh by adding a small snippet to `.zshrc`.
 - 🛠 **Reproducible Environments** – Easily reproduce the same Zsh setup by using the same `.zshrc`.
 - 🌍 **Supports Multiple Sources** – Install plugins using:
@@ -14,6 +18,7 @@
 - 📌 **Version Locking** – Supports locking plugins to a specific `branch`, `tag`, or `commit`.
 - 🔄 **Automatic Updates** – Set an update interval and get reminders to keep plugins up to date.
 - 🔗 **Easy Plugin Management** – Install, update, list, and remove plugins with simple commands.
+- 🔍 **Ghost Plugin Detection** – Detect unmanaged plugin directories
 
 ### ⚡️ Requirements
 
@@ -61,13 +66,65 @@
     # ----- lazy.zsh configuration: end -----
     ```
 
-    🔹 **Tip**: Ensure that `compinit` is loaded after `lazy.zsh`.
+    🔹 **Tip**: Ensure that `compinit` is loaded ***after*** `lazy.zsh`.
 
 - Source the `.zshrc` or restart your terminal.
 
-    ```sh
-    source ~/.zshrc
-    ```
+### 🚀 Usage
+
+**lazy.zsh** follows a simple workflow:
+
+> Edit **.zshrc** → reload shell → run **lazyz** commands
+
+#### Install plugins
+
+- Define plugins in your `.zshrc`:
+
+```sh
+declare -a LAZYZ_PLUGINS=(
+  "zsh-users/zsh-autosuggestions"
+  "zsh-users/zsh-syntax-highlighting"
+)
+```
+
+- Reload your shell
+
+- Run:
+
+```sh
+lazyz install
+```
+
+#### Load plugins
+
+**lazy.zsh** does **not auto-source plugins**. You control how and when
+they are loaded:
+
+```sh
+source "$LAZYZ_DATA_HOME/zsh-autosuggestions/zsh-autosuggestions.zsh"
+source "$LAZYZ_DATA_HOME/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+```
+
+🔹 **Tip**: Some plugins may use different entry files (`*.plugin.zsh`,
+`init.zsh`, etc.). Check the plugin’s documentation.
+
+#### Update plugins
+
+```sh
+lazyz update
+```
+
+#### Remove plugins
+
+- Remove the plugin from `LAZYZ_PLUGINS` array
+- Reload your shell
+- Clean unused plugins:
+
+```sh
+lazyz clean NAME|all
+```
+
+#### More help
 
 - Run `lazyz help` to see all available commands.
 
@@ -87,7 +144,7 @@ declare -a LAZYZ_PLUGINS=(
 ```
 
 Internally, `lazy.zsh` parses these strings into **structured plugin metadata**
-using associative arrays, but the user only interact with the simple, flat format.
+using associative arrays, but the user only interacts with the simple, flat format.
 This design avoids complex data structures while remaining expressive and easy
 to parse in pure Zsh.
 
@@ -153,21 +210,6 @@ declare -a LAZYZ_PLUGINS=(
 (default: `~/.local/share/zsh/lazyz/`).
 - `LAZYZ_CACHE_HOME` defines the cache directory (default: `~/.cache/zsh/lazyz/`).
 
-### 🔎 Missing Features
-
-This design keeps `lazy.zsh` **minimal** and **predictable**, avoids implicit
-sourcing, and gives users full control over load order and startup
-performance. To load plugins, **manually source them** in your `.zshrc`.
-For example:
-
-```sh
-# Load powerlevel10k theme
-source "$LAZYZ_DATA_HOME/powerlevel10k/powerlevel10k.zsh-theme"
-```
-
-🔹 **Tip**: Some plugins may have different filenames (e.g., `plugin.zsh`,
-`init.zsh`). Check the plugin’s documentation for the correct source file.
-
 ### ❓ FAQs
 
 #### What is a ghost plugin
@@ -179,7 +221,7 @@ Ghost plugin is a directory under `LAZYZ_DATA_HOME` that:
 
 #### Why does a plugin entry in `LAZYZ_PLUGINS` array have a weird syntax?
 
-Simple! [Zsh shell does not have built-in support for multi-dimensional array](https://www.zsh.org/mla/users/2016/msg00778.html)
+Because [Zsh does not support multi-dimensional arrays natively](https://www.zsh.org/mla/users/2016/msg00778.html).
 
 #### Where can I get a starter `.zshrc` file?
 
