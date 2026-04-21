@@ -7,10 +7,10 @@
 - 🚀 **Fast & Lightweight** – No unnecessary dependencies, just pure Zsh and Git.
 - ⚡ **One-Line Bootstrap** – Quickly install lazy.zsh by adding a small snippet to `.zshrc`.
 - 🛠 **Reproducible Environments** – Easily reproduce the same Zsh setup by using the same `.zshrc`.
-- 🌍 **Supports Multiple Sources** – Install plugins using:  
-    - Short GitHub URLs (`username/repository`)  
-    - Full Git URLs (`https://`, `git@`, etc.)  
-    - Local paths
+- 🌍 **Supports Multiple Sources** – Install plugins using:
+  - Short GitHub URLs (`username/repository`)
+  - Full Git URLs (`https://`, `git@`, etc.)
+  - Local paths
 - 📌 **Version Locking** – Supports locking plugins to a specific `branch`, `tag`, or `commit`.
 - 🔄 **Automatic Updates** – Set an update interval and get reminders to keep plugins up to date.
 - 🔗 **Easy Plugin Management** – Install, update, list, and remove plugins with simple commands.
@@ -56,7 +56,8 @@
     }
     .lazyz_bootstrap
     unset -f .lazyz_bootstrap
-    alias zshrc="${EDITOR:-vi} ~/.zshrc"    # Quick access to the ~/.zshrc file
+
+    alias zshrc="${EDITOR:-vi} ~/.zshrc"    # quick access to the ~/.zshrc file
     # ----- lazy.zsh configuration: end -----
     ```
 
@@ -81,25 +82,25 @@ pairs act as options that control how the plugin is handled.
 
 ```sh
 declare -a LAZYZ_PLUGINS=(
-    "plugin_url option1=value1 option2=value2 ..."
+    "plugin_src option1=value1 option2=value2 ..."
 )
 ```
 
 Internally, `lazy.zsh` parses these strings into **structured plugin metadata**
-using associative arrays, but users only interact with the simple, flat format.
+using associative arrays, but the user only interact with the simple, flat format.
 This design avoids complex data structures while remaining expressive and easy
 to parse in pure Zsh.
 
 ##### Available Plugin Options
 
-| Option    | Description | Required |
-|-----------|------------|-----------|
+| Option | Description | Required |
+| ----------- | ------------ | ----------- |
 | (implicit) | Plugin source (first token in entry) | ✅ Yes |
-| `branch`  | Git branch to checkout | ❌ No |
-| `commit`  | Lock plugin to a specific commit | ❌ No |
-| `tag`     | Lock plugin to a specific tag | ❌ No |
+| `branch` | Git branch to checkout | ❌ No |
+| `commit` | Lock plugin to a specific commit | ❌ No |
+| `tag` | Lock plugin to a specific tag | ❌ No |
 | `build` | Commands executed in the plugin directory after install or update | ❌ No |
-| `local`    | Is a local plugin (`default=false`) | ❌ No |
+| `local` | Is a local plugin (`default=false`) | ❌ No |
 
 ##### Example Configuration
 
@@ -144,10 +145,13 @@ declare -a LAZYZ_PLUGINS=(
 ```
 
 #### Other Options
+
 - To get a reminder to update your plugins, set `LAZYZ_UPDATE_REMINDER=true`.
-- `LAZYZ_UPDATE_INTERVAL` defines how often (in days) to get a reminder (default: `14` days).
-- `LAZYZ_DATA_HOME` defines the directory where plugins will be installed (default: `~/.local/share/zsh/lazyz/`). 
-- `LAZYZ_CACHE_HOME` defines the cache directory (default: `~/.cache/zsh/lazyz/`). 
+- `LAZYZ_UPDATE_INTERVAL` defines how often (in days) to get a reminder
+(default: `14` days).
+- `LAZYZ_DATA_HOME` defines the directory where plugins will be installed
+(default: `~/.local/share/zsh/lazyz/`).
+- `LAZYZ_CACHE_HOME` defines the cache directory (default: `~/.cache/zsh/lazyz/`).
 
 ### 🔎 Missing Features
 
@@ -161,23 +165,25 @@ For example:
 source "$LAZYZ_DATA_HOME/powerlevel10k/powerlevel10k.zsh-theme"
 ```
 
-🔹 **Tip**: Some plugins may have different filenames (e.g., `plugin.zsh`, `init.zsh`). Check the plugin’s documentation for the correct source file.
+🔹 **Tip**: Some plugins may have different filenames (e.g., `plugin.zsh`,
+`init.zsh`). Check the plugin’s documentation for the correct source file.
 
 ### ❓ FAQs
 
 #### What is a ghost plugin
 
-Ghost plugin = a directory under `LAZYZ_DATA_HOME` that:
+Ghost plugin is a directory under `LAZYZ_DATA_HOME` that:
+
 1. Looks like a plugin (git repo or plugin files)
 2. Is not represented by any entry in `LAZYZ_PLUGINS`
 
 #### Why does a plugin entry in `LAZYZ_PLUGINS` array have a weird syntax?
 
-Simple! [Zsh shell does not have built-in support for multi-dimmensional array](https://www.zsh.org/mla/users/2016/msg00778.html)
+Simple! [Zsh shell does not have built-in support for multi-dimensional array](https://www.zsh.org/mla/users/2016/msg00778.html)
 
 #### Where can I get a starter `.zshrc` file?
 
-A well-structured starter [.zshrc](https://github.com/stanleyndachi/lazy.zsh/blob/main/examples/zshrc) is available in the this repository.
+A well-structured starter [.zshrc](https://github.com/stanleyndachi/lazy.zsh/blob/main/examples/zshrc) file is available in this repository.
 
 ```sh
 curl -o ~/.zshrc 'https://raw.githubusercontent.com/stanleyndachi/lazy.zsh/refs/heads/main/examples/zshrc'
@@ -204,11 +210,10 @@ curl -o ~/.zshrc 'https://raw.githubusercontent.com/stanleyndachi/lazy.zsh/refs/
 
 ### 📝 TODO
 
-- [ ] [ZSH Plugin Standard](https://zdharma-continuum.github.io/Zsh-100-Commits-Club/Zsh-Plugin-Standard.html)
+- [X] [ZSH Plugin Standard](https://zdharma-continuum.github.io/Zsh-100-Commits-Club/Zsh-Plugin-Standard.html)
 
 ### 🌐 Other Resources
 
 - [autoupdate-oh-my-zsh-plugins](https://github.com/tamcore/autoupdate-oh-my-zsh-plugins) - oh-my-zsh plugin for auto updating of git-repositories in $ZSH_CUSTOM folder
 
 - [awesome-zsh-plugins](https://github.com/unixorn/awesome-zsh-plugins) - A collection of ZSH frameworks, plugins, tutorials & themes inspired by the various awesome list collections out there.
-

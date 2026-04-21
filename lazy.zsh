@@ -1,7 +1,22 @@
 #!/usr/bin/env zsh
 
-# lazy.zsh plugin manger
-# Stanley Ndachi <https://github.com/stanleyndachi/lazy.zsh>
+# lazy.zsh
+#
+# Copyright 2026 Stanley Ndachi
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# 	http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+# SPDX-License-Identifier: Apache-2.0
 
 if [[ -z "${ZSH_VERSION}" ]]; then
 	echo "[lazyz]: not in zsh shell!"
@@ -15,6 +30,9 @@ fi
 
 if [[ -z "${LAZYZ_CACHE_HOME}" ]]; then
 	export LAZYZ_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache/}/zsh/lazyz"
+fi
+
+if [[ ! -d ${LAZYZ_CACHE_HOME} ]]; then
 	mkdir -p "${LAZYZ_CACHE_HOME}" &>/dev/null
 fi
 

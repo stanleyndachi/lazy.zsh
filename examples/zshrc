@@ -110,7 +110,7 @@ setopt share_history          # share command history data
 alias history="history 0"
 
 # make less more friendly for non-text input files, see lesspipe(1)
-#[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+# [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
 # set variable identifying the chroot you work in (used in the prompt below)
 if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
@@ -148,8 +148,8 @@ configure_prompt() {
             precmd_vcs_info() { vcs_info }
             precmd_functions+=( precmd_vcs_info )
             zstyle ':vcs_info:*' check-for-changes true
-            zstyle ':vcs_info:*' stagedstr '●'
-            zstyle ':vcs_info:*' unstagedstr '✚'
+            zstyle ':vcs_info:*' stagedstr '✚'
+            zstyle ':vcs_info:*' unstagedstr '●'
             zstyle ':vcs_info:git:*' formats ' %F{yellow}%b%F{reset}%c%u'
             zstyle ':vcs_info:*' enable git
 
@@ -296,15 +296,15 @@ if [ -x /usr/bin/dircolors ]; then
     zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 fi
 
-# some more ls aliases
+# aliases and functions
 alias l='ls -CF'
 alias ll='ls -lh'                       # long list, human readable
 alias la='ls -AFh'                      # show almost all, show type
 alias lt='ls -ltFh'                     # long list, sorted by date, show type, human readable
-alias ldot='ls -ld .*'                  # list dot file
+alias ldot='ls -ld .*'                  # list hidden files only
 alias tree='tree -CAhF --dirsfirst'
 
-# go up a specified number of directories (i.e. up 4)
+# go up a specified number of directories (e.g `up 4`)
 function up() {
     local d=""
     local -i limit="${1:-1}" # default (1 level up)
